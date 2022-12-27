@@ -11,6 +11,11 @@ const logger = createError('TodosAccess')
 const attachmentUtils = new AttachmentUtils()
 const todosAcess = new TodosAccess()
 
+export async function getTodosForUser(userId: string): Promise<TodoItem[]>{
+    logger.info('Get todos for user')
+    return todosAcess.getAllTodos(userId)
+}
+
 
 export async function createTodo(
     newTodo: CreateTodoRequest,
