@@ -18,7 +18,7 @@ export const handler = middy(
         item: newItem
       })
     }
-      return undefined
+      // return undefined
     }
 
 )
