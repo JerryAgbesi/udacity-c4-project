@@ -55,8 +55,8 @@ functions:
           method: get
        
 
-  Auth:
-    handler: src/lambda/auth/auth0Authorizer.handler
+  # Auth:
+  #   handler: src/lambda/auth/auth0Authorizer.handler
 
   # TODO: Configure this function - 
   # Provide iamRoleStatements property for performing Actions on DynamoDB
@@ -122,8 +122,8 @@ functions:
   #         method: post
   #         path: todos/{todoId}/attachment
 
-resources:
-  Resources:
+# resources:
+#   Resources:
     # Add necessary AWS resources. You will need at least the following AWS resources
     # TODO: Fill the properties
     # Feel free to change the names as you like. 
