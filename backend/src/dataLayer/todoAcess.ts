@@ -24,11 +24,11 @@ export class TodosAccess {
                 TableName : this.todosTable,
                 IndexName : this.todosIndex,
                 KeyConditionExpression: 'userId = :userId',
-                ExpressionAttributeNames: {
+                ExpressionAttributeValues: {
                     ':useId': userId                }
 
 
-                
+                 
             }).promise()
 
             const items = result.Items
@@ -40,12 +40,14 @@ export class TodosAccess {
 
         logger.info('Create todo item function called')
 
-        await this.docClient.put({
+        const newItem = await this.docClient.put({
             TableName:this.todosTable,
             Item:todoItem
         }).promise()
 
-        return todoItem
+        logger.info('Todo item created',newItem)
+
+        return todoItem as TodoItem
     }
 
     async updateTodoItem(
@@ -100,7 +102,7 @@ export class TodosAccess {
                 todoId,
                 userId
             },
-            UpdateExpression:'set attachmenturl = :attachmenturl',
+            UpdateExpression:'set attachmentUrl = :attachmentU rl',
             ExpressionAttributeValues: {
                 ':attachmentUrl' : attachmentUrl
             }
