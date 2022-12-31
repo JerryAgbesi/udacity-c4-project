@@ -53,11 +53,12 @@ export class TodosAccess {
     }
 
     async updateTodoItem(
-        todoId: string,
         userId: string,
+        todoId: string,
         todoUpdate: TodoUpdate
     ):Promise<TodoUpdate> {
-        await this.docClient
+
+        const result = await this.docClient
         .update({
             TableName: this.todosTable,
             Key:{
@@ -74,21 +75,27 @@ export class TodosAccess {
                 // '#dueDate':'dueDate',
                 // '#done':'done'
 
-            }
+            },
+            ReturnValues: 'ALL_NEW'
         }).promise()
-        return todoUpdate
+        const todoItemUpdate = result.Attributes 
+        logger.info('todo item updated',todoItemUpdate)
+        return todoItemUpdate as TodoUpdate
+        
     }
 
-    async deleteTodoItem(todoId: string, userId: string): Promise<void> {
+    async deleteTodoItem(todoId: string, userId: string): Promise<string> {
         logger.info('Delete todo item function called')
 
-        await this.docClient.delete({
+        const result = await this.docClient.delete({
             TableName: this.todosTable,
             Key:{
                 todoId,userId
             }
 
         }).promise()
+        logger.info("todo item deleted",result)
+        return todoId as string
 
     }
 
