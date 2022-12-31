@@ -3,7 +3,6 @@ org: jerryagbesi
 app: serverless-todo-app
 service: serverless-todo-app
 frameworkVersion: '3.26.0'
-configValidationMode: error
 
 plugins:
   - serverless-webpack
@@ -13,7 +12,11 @@ plugins:
 provider:
   name: aws
   runtime: nodejs12.x
+<<<<<<< HEAD
   # lambdaHashingVersion: '20201221'
+=======
+  lambdaHashingVersion: '20201221'
+>>>>>>> cff96cc (Fix errors)
 
   stage: ${opt:stage, 'dev'}
   region: ${opt:region, 'us-east-1'}
@@ -25,9 +28,9 @@ provider:
   # Use these variables in the functions and resouorces section below. For example, 
   # ${self:provider.environment.ATTACHMENT_S3_BUCKET}
   environment:
-    TODOS_TABLE: serverless-todo-app-${self:provider.stage}
+    TODOS_TABLE: Serverless-todo-app-${self:provider.stage}
     TODOS_CREATED_AT_INDEX: CreatedAtIndex
-    ATTACHMENT_S3_BUCKET: serverless-todo-attachment-images-${self:provider.stage}
+    ATTACHMENT_S3_BUCKET: app-todo-images-${self:provider.stage}
     SIGNED_URL_EXPIRATION: 300
     PROJECT_NAME: serverless-todo-app
     INDEX_NAME: ${self:provider.environment.TODOS_CREATED_AT_INDEX}
@@ -47,6 +50,7 @@ provider:
 
 
 functions:
+<<<<<<< HEAD
   # hello:
   #   handler: handler.hello
   #   events:
@@ -54,6 +58,15 @@ functions:
   #         path: /
   #         method: get
        
+=======
+  hello:
+    handler: handler.hello
+    events:
+      - httpApi:
+          path: /
+          method: get
+        
+>>>>>>> cff96cc (Fix errors)
 
   Auth:
     handler: src/lambda/auth/auth0Authorizer.handler
@@ -164,8 +177,6 @@ resources:
         RestApiId:
           Ref: 'ApiGatewayRestApi'  
     
-
-    
     # TODO: Create a DynamoDB table with local secondary index and a composite key
     TodosTable:
       Type: AWS::DynamoDB::Table
@@ -193,8 +204,6 @@ resources:
                 KeyType: RANGE
             Projection:
               ProjectionType: ALL 
-  
-
 
     # TODO: Complete the bucket properties below. 
     # Do not forget to add the CorsConfiguration propoerty
@@ -216,7 +225,6 @@ resources:
                 - DELETE
                 - HEAD
               MaxAge: 300      
-
     # TODO: Complete the policy below and attach it to the bucket defined above
     # For cross referencing the name of the bucket, use "!Ref AttachmentsBucket"
     BucketPolicy:
@@ -232,4 +240,3 @@ resources:
               Action: 's3:GetObject'
               Resource: 'arn:aws:s3:::${self:provider.environment.ATTACHMENT_S3_BUCKET}/*' 
         Bucket: !Ref AttachmentsBucket
-    
