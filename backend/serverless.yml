@@ -94,7 +94,7 @@ functions:
           method: post
           path: todos
           cors: true
-  #         authorizer: Auth
+          authorizer: Auth
   #         request:
   #           schemas:
   #             application/json: ${file(models/create-todo-model.json)}
