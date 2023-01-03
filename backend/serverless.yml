@@ -43,7 +43,7 @@ provider:
         - Effect: Allow
           Action:
             - xray:PutTelemetryRecords
-           Resource: "*"
+          Resource: "*"
 custom:
   documentation:
     api:
