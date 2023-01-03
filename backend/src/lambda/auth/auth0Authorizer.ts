@@ -19,7 +19,7 @@ export const handler = async (
 ): Promise<CustomAuthorizerResult> => {
   logger.info('Authorizing a user', event.authorizationToken)
   try {
-    const jwtToken = await verifyToken(event.authorizationToken)
+    const jwtToken = await verifyToken(event.authorizationToken!)
     logger.info('User was authorized', jwtToken)
 
     return {
@@ -56,6 +56,7 @@ export const handler = async (
 
 async function verifyToken(authHeader: string): Promise<JwtPayload> {
   logger.info('verifying token',authHeader.substring(0,20))
+
   const token = getToken(authHeader)
   const jwt: Jwt = decode(token, { complete: true }) as Jwt
 
