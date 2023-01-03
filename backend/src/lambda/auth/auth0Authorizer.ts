@@ -78,6 +78,7 @@ async function verifyToken(authHeader: string): Promise<JwtPayload> {
   const verifiedToken = verify(token,cert, {algorithms: ['RS256']}) as JwtPayload
   logger.info('verifiedToken',verifiedToken)
   return verifiedToken
+
 }
 
 function getToken(authHeader: string): string {
