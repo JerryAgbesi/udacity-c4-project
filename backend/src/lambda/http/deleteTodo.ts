@@ -15,8 +15,6 @@ export const handler = middy(
     await deleteTodo(
       todoId,
       userId
-      
-
     )
     return {
       statusCode: 204,

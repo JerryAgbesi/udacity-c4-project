@@ -43,8 +43,7 @@ provider:
         - Effect: Allow
           Action:
             - xray:PutTelemetryRecords
-            - xray:PutTraceSegments
-          Resource: "*"
+           Resource: "*"
 custom:
   documentation:
     api:
@@ -62,14 +61,6 @@ custom:
                 
 
 functions:
-  # hello:
-  #   handler: handler.hello
-  #   events:
-  #     - httpApi:
-  #         path: /
-  #         method: get
-       
-
   Auth:
     handler: src/lambda/auth/auth0Authorizer.handler
 
@@ -164,6 +155,7 @@ functions:
       - http:
           method: delete
           path: todos/{todoId}
+          cors: true
     iamRoleStatementsName: ${self:provider.environment.PROJECT_NAME}-delete-todo-role-${sls:stage}
     iamRoleStatements: 
       - Effect: Allow
